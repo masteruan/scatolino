@@ -1,0 +1,19 @@
+7.85  Display BN 2.13": https://s.click.aliexpress.com/e/_DkVTN0b
+8.84  ESP32 TTGO T18: https://s.click.aliexpress.com/e/_Dl6aoUX
+1.16  Batteria 18650: https://s.click.aliexpress.com/e/_DDtWJtV
+2.82  LED RGB WS2812 5mm foggy:  https://s.click.aliexpress.com/e/_Dc92OLl
+1.82  Giroscopio MPU6050: https://s.click.aliexpress.com/e/_DFVYYmL
+3     Magneti 10x3: https://s.click.aliexpress.com/e/_DcZExTD
+
+24,69€
+
+
+Esempi
+
+METEO - WEATHER
+https://github.com/G6EJD/ESP32-e-Paper-Weather-Display
+https://github.com/piotr-kubica/weather-tiny
+
+OROLOGIO - CLOCK
+https://wiki.dfrobot.com/e-Ink_Display_Module_for_ESP32_SKU_DFR0676
+
