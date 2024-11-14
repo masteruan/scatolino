@@ -89,8 +89,8 @@ uint32_t targetTime = 0;                        //
 uint16_t currentStock = 0;                      // 
 uint8_t enableSleep = 1;                       // sleep enable indicator
 uint8_t luma = 30;                              // brigtness of LED
-const char* ssid     = "Xxxxxx";   // Setup WIFI credentials   
-const char* password = "Xxxxxxx";           
+const char* ssid     = "Fastlan";   // Setup WIFI credentials   
+const char* password = "cicciottocartofier2";           
 
 String payload="";
 double current=0;
@@ -378,6 +378,8 @@ void read_price(String stock_name, String nome) {      // read stock from finnhu
   float percentchange; 
   float change; 
   float previousclose; 
+  long _vhigh;
+  long _vlow;
   float vhigh;
   float vlow;
   float open;
@@ -405,14 +407,18 @@ void read_price(String stock_name, String nome) {      // read stock from finnhu
     String h=doc["h"];  
     String l=doc["l"];
     String o=doc["o"];
-    vhigh=h.toDouble();   
-    vlow=l.toDouble();   
+    _vhigh = h.toInt();
+    vhigh = h.toDouble();
+    _vlow = l.toInt();
+    vlow = l.toDouble();
     open=o.toDouble();   
     current=v.toDouble(); 
     percentchange=c.toDouble();
     previousclose=pc.toDouble();
     change=d.toDouble();
 
+  
+    
     if (current != 0) {                     // se il valore è diversa da zero allro mostrala, diversamente è un errore e saltala
 
       rotation = get_orientation();
@@ -429,7 +435,7 @@ void read_price(String stock_name, String nome) {      // read stock from finnhu
       
       display.setFullWindow();
       display.firstPage();
-//      WS2812B.setPixelColor(0, WS2812B.Color(0, 0, luma));     //  LED Color for COL EINK display
+      //WS2812B.setPixelColor(0, WS2812B.Color(0, 0, luma));     //  LED Color for COL EINK display
       WS2812B.setPixelColor(0, WS2812B.Color(0, 0, 0));          //  LED color for BN  EINK dispaly   
       WS2812B.show();       
       do {
@@ -492,9 +498,15 @@ void read_price(String stock_name, String nome) {      // read stock from finnhu
 //          display.setFont(&FreeSans9pt7b);
           display.setFont(&OpenSans_Condensed_Bold9pt7b);
           display.setCursor(2, 130);
-          display.print("MIN=$" + String(vlow)); 
-          display.setCursor(2, 150);
-          display.print("MAX=$"+ String(vhigh));
+          if (vhigh > 1000){
+            display.print("MIN=$" + String(_vlow)); 
+            display.setCursor(2, 150);
+            display.print("MAX=$"+ String(_vhigh));
+            } else {
+            display.print("MIN=$" + String(vlow)); 
+            display.setCursor(2, 150);
+            display.print("MAX=$"+ String(vhigh));
+            }
           display.setCursor(2, 170);
           display.print("PRE=$" + String(previousclose));
           display.setCursor(2, 100);
@@ -541,7 +553,11 @@ void read_price(String stock_name, String nome) {      // read stock from finnhu
           display.drawRect(0, 49, 250, 49, GxEPD_BLACK); // 122x250
           display.setFont(&FreeSansBold9pt7b);
           display.setCursor(8, 78);
-          display.print("Min=$" + String(vlow) + "  Max=$"+ String(vhigh));
+          if (vhigh > 1000){
+            display.print("Min=$" + String(_vlow) + "  Max=$"+ String(_vhigh));  
+            } else {
+            display.print("Min=$" + String(vlow) + "  Max=$"+ String(vhigh));  
+            }
           display.setCursor(25, 93);
           display.print("Chiusura prec.=$" + String(previousclose));
           display.setCursor(55, 63);
